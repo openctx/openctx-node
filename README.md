@@ -1,20 +1,24 @@
 # Open Context for Node.js
 
-This is a simple library for providing Distributed Context Problem
+This is a simple library for providing Distributed Context Propagation 
 in Node.js programs.
 
 DCP is most beneficial in large service oriented architectures. Each request
-has some associated metadata, and we want to make sure that data stays with
-the tree of RPCs that service the root request.
+has some associated metadata, and we want to make sure that data propagates 
+througout the call graph that service the root request.
 
-The `Context` object in this library stores that request metadata, or baggage.
-It's intended to be implemented into RPC libraries, who would be responsible
-for actually serializing the data onto the wire.
+The `Context` object in this library stores that stores context, including
+serializable distributed context, called baggage.
+It's intended to be implemented into RPC libraries. RPC transport libraries
+are responsable for marshaling baggage on and off the wire.
 
-It also supports 'joining', a process where we copy all values from one
-context to another.
+OpenCtx supports "joining". Both requests and responses can carry baggage.
+Joining a response context with the context in hand carries the baggage forward
+throughout subsequent requests and responses. Joining parallel responses may
+involve property specific logic, like taking the lesser of two deadlines,
+merging sets of receipts, or computing the latter of logical clocks.
 
-A `Context` object is essentially just a bag of key/value pairs. By having a
+A `Context` object is just a bag of key/value pairs. By having a
 common interface, we can support `Context` in different RPC libraries.
 
 ## `Context()`
