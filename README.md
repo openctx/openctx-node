@@ -5,12 +5,11 @@ in Node.js programs.
 
 DCP is most beneficial in large service oriented architectures. Each request
 has some associated metadata, and we want to make sure that data propagates 
-througout the call graph that service the root request.
+througout the call graph that services the root request.
 
-The `Context` object in this library stores that stores context, including
-serializable distributed context, called baggage.
-It's intended to be implemented into RPC libraries. RPC transport libraries
-are responsable for marshaling baggage on and off the wire.
+The `Context` object in this library stores this serializable distributed 
+context, called baggage. It's intended to be implemented into RPC libraries, 
+which are responsible for marshaling baggage on and off the wire.
 
 OpenCtx supports "joining". Both requests and responses can carry baggage.
 Joining a response context with the context in hand carries the baggage forward
