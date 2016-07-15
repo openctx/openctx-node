@@ -1,7 +1,7 @@
 # Open Context for Node.js
 
-This is a simple library for providing Distributed Context Propagation 
-in Node.js programs.
+This is a simple library for solving the Distributed Context Propagation (DCP)
+problem in Node.js programs.
 
 DCP is most beneficial in large service oriented architectures. Each request
 has some associated metadata, and we want to make sure that data propagates 
