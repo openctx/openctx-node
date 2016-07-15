@@ -33,9 +33,6 @@ function makeServer(name, endpoint, handler, done) {
 
     function handle(inreq, outres) {
         inreq.ctx = serializer.deserialize(inreq.headers);
-        outres.ctx = new Context();
-        outres.ctx.joinWith(inreq.ctx); 
-        inreq.ctx.outresctx = outres.ctx;
 
         console.log('# SERVER ' + name + ' got request: ' + inreq.url);
         if (inreq.url === '/' + endpoint) {
@@ -43,7 +40,7 @@ function makeServer(name, endpoint, handler, done) {
         }
 
         function done(data) {
-            var headers = serializer.serialize(outres.ctx);
+            var headers = serializer.serialize(inreq.ctx);
             outres.writeHead(200, 'ok', headers);
             outres.end(data);
         }
@@ -70,7 +67,6 @@ function ctxRequest(inreqctx, url, done) {
     function reqDone(error, req, body) {
         var inresctx = serializer.deserialize(req.headers || {});
         inreqctx.joinWith(inresctx);
-        inreqctx.outresctx.joinWith(inresctx);
 
         req.ctx = inresctx;
 
@@ -130,7 +126,7 @@ test('response propagated baggage', function t2(a) {
     }
 
     function alicePoked(inreq, outres, done) {
-        outres.ctx.set('touched-by-alice', 'true');
+        inreq.ctx.set('touched-by-alice', 'true');
         done('alice was poked');
     }
 
@@ -171,7 +167,7 @@ test('request propagated baggage on a response context', function t3(a) {
     }
 
     function bobPoked(inreq, outres, done) {
-        outres.ctx.set('auth', '108faa8fd');
+        inreq.ctx.set('auth', '108faa8fd');
         done('bob was poked');
     }
 
@@ -217,7 +213,7 @@ test('request AND response propagated baggage on a response context', function t
     }
 
     function bobPoked(inreq, outres, done) {
-        outres.ctx.set('auth', '108faa8fd');
+        inreq.ctx.set('auth', '108faa8fd');
         done('bob was poked');
     }
 
@@ -266,7 +262,7 @@ test('infectious baggage on a response context', function t3(a) {
     }
 
     function bobPoked(inreq, outres, done) {
-        outres.ctx.set('clock', '108faa8fd');
+        inreq.ctx.set('clock', '108faa8fd');
         done('bob was poked');
     }
 

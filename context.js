@@ -26,9 +26,6 @@ module.exports = Context;
 
 function Context(options) {
     this.dict = Object.create(null);
-    // This is only set on inreqctx. We do this so that when making outgoing
-    // requests, the user wouldn't have to pass both inreqctx and outresctx.
-    this.outresctx = null;
 }
 
 Context.prototype.set = function set(key, value) {
