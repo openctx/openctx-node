@@ -8,13 +8,13 @@ has some associated metadata, and we want to make sure that data propagates
 througout the call graph that services the root request.
 
 The `Context` object in this library stores this serializable distributed 
-context, called baggage. It's intended to be implemented into RPC libraries, 
-which are responsible for marshaling baggage on and off the wire.
+context, called baggage. RPC libraries are responsible for marshaling baggage 
+on and off the wire.
 
 OpenCtx supports "joining". Both requests and responses can carry baggage.
 Joining a response context with the context in hand carries the baggage forward
 throughout subsequent requests and responses. Joining parallel responses may
-involve property specific logic, like taking the lesser of two deadlines,
+involve property-specific logic, like taking the lesser of two deadlines,
 merging sets of receipts, or computing the latter of logical clocks.
 
 A `Context` object is just a bag of key/value pairs. By having a
@@ -66,7 +66,7 @@ the `createChild` method to make `outreqctx`s, which are serialized into any
 outgoing requests to downstream services. These `outreqctx`s will inherit any 
 baggage on the `inreqctx`.
 
-We also have an `outresctx`, or the properties that we want to be on our
+We also have an `outresctx` for the properties that we want to be on our
 outgoing response. This also inherits from the `inreqctx`.
 
 Every time a downstream request comes back, when we have an `inres`, we join
