@@ -1,0 +1,33 @@
+{
+  "name": "openctx-node",
+  "version": "1.0.0",
+  "description": "Distributed Context Propagation library",
+  "main": "context.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openctx/openctx-node.git"
+  },
+  "keywords": [
+    "soa",
+    "services",
+    "context",
+    "distributed",
+    "baggage"
+  ],
+  "author": "Russ Frank <rf@uber.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/openctx/openctx-node/issues"
+  },
+  "homepage": "https://github.com/openctx/openctx-node#readme",
+  "dependencies": {
+    "error": "^7.0.2"
+  },
+  "devDependencies": {
+    "request": "^2.72.0",
+    "tape": "^4.6.0"
+  }
+}
